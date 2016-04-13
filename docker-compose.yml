@@ -1,0 +1,30 @@
+version: '2'
+
+volumes:
+  mysql-data:
+    external: false
+  dr-elephant-logs:
+    external: false
+
+services: 
+ dr-elephant-mysql:
+  image: mysql:5.6
+  environment: 
+     MYSQL_DATABASE: drelephant
+     MYSQL_ROOT_PASSWORD: drelephant
+  volumes: 
+   - mysql-data:/var/lib/mysql
+   - ./mysql/large_keys.cnf:/etc/mysql/conf.d/large_keys.cnf
+
+ dr-elephant:
+  build: 
+    context: frontend/.
+  ports: 
+  - 9000:9000
+  stdin_open: true
+  depends_on:
+  - dr-elephant-mysql
+  volumes:
+#  - ./hadoop-conf:/usr/local/hadoop/etc/hadoop/
+  - dr-elephant-logs:/dr-elephant/logs
+  - ./frontend/elephant.conf:/dr-elephant/app-conf/elephant.conf
