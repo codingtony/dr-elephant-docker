@@ -53,6 +53,16 @@
 * docker-compose start
 * point your browser to http://yourhost:9000
 * Enjoy!
-~                    
+
+
+##More detailed installation
+* Install docker & docker-compose
+* git clone https://github.com/codingtony/dr-elephant-docker
+* cd dr-elephant-docker
+* mkdir hadoop-conf
+* copy or create your hadoop cluster config in hadoop-conf.
+* Then when it's up, you can connect to http://localhost:9000 (or use the hostname of the machine where you are running docker from)
+
+
 
 
