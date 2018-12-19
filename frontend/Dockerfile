@@ -21,10 +21,10 @@ RUN wget http://archive.apache.org/dist/hadoop/core/hadoop-$HADOOP_VERSION/hadoo
 
 # Dr Elephant Instalation
 RUN git clone https://github.com/linkedin/dr-elephant.git dr-elephant-sources
-RUN sed -i "s/hadoop_version=.*/hadoop_version=$HADOOP_VERSION/g" /dr-elephant-sources/app-conf/compile.conf
-RUN sed -i "s/spark_version=.*/spark_version=$SPARK_VERSION/g" /dr-elephant-sources/app-conf/compile.conf
-RUN cat /dr-elephant-sources/app-conf/compile.conf
-RUN cd /dr-elephant-sources && ./compile.sh app-conf/compile.conf &&  cd dist && unzip dr*.zip  && rm *.zip && mv $PWD/dr*/ /dr-elephant
+RUN sed -i "s/hadoop_version=.*/hadoop_version=$HADOOP_VERSION/g" /dr-elephant-sources/compile.conf
+RUN sed -i "s/spark_version=.*/spark_version=$SPARK_VERSION/g" /dr-elephant-sources/compile.conf
+RUN cat /dr-elephant-sources/compile.conf
+RUN cd /dr-elephant-sources && ./compile.sh compile.conf &&  cd dist && unzip dr*.zip  && rm *.zip && mv $PWD/dr*/ /dr-elephant
 
 # POST Installation
 RUN sed -i 's#/dev/null#$project_root/logs/out#' /dr-elephant/bin/start.sh && mkdir -p /dr-elephant/app-conf && cp /dr-elephant-sources/app-conf/* /dr-elephant/app-conf
